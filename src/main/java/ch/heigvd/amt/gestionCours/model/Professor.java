@@ -4,12 +4,14 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
+import java.util.List;
+
 @Builder
 @Getter
 @EqualsAndHashCode
-public class Student {
+public class Professor {
     private String firstName;
     private String lastName;
     private String username;
-    private Group group;
+    private List<Course> givingCourses;
 }
