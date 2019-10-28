@@ -1,15 +1,16 @@
-version: '2'
+version: '3.4'
 
-services:
-    widfly:
-        build: ../images/widfly
+services:            
+    glassfish:
+        build: ../images/glassfish
         ports:
-            - "9090:8080"
-            - "9990:9990"
+            - "8080:8080"
+            - "4848:4848"
           
     postgres:
-        build: ./images/postgres
+        build: ../images/postgres
         restart: always
+        
         ports:
             - '5432:5432'
         environment:
@@ -19,5 +20,5 @@ services:
             - PGDATA=/var/lib/postgresql/data/pgdata
             
         volumes:
-            - ./images/postgres/data/ :/var/lib/postgres/data
+             - ../images/postgres/data/ :/var/lib/postgres/data
         
