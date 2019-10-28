@@ -1,5 +1,5 @@
 FROM postgres:9.6
 
-COPY ./images/postgres/data/tables.sql /docker-entrypoint-initdb.d/tables.sql
+COPY data/btables.sql /docker-entrypoint-initdb.d/btables.sql
 
-COPY ./images/postgres/data/insertions.sql /docker-entrypoint-initdb.d/insertions.sql
+COPY data/cinsertions.sql /docker-entrypoint-initdb.d/cinsertions.sql
