@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
 
 @Stateless
@@ -82,6 +84,8 @@ public class UsrManager implements IntUsrManager {
             if (result.next()) {
                 usr = Util.convertResultsetToUser(result);
             }
+            conn.close();
+
         }  catch (SQLException e){
         e.printStackTrace();
     }
@@ -101,11 +105,31 @@ public class UsrManager implements IntUsrManager {
             pstmt.setString(1, username);
             int result = pstmt.executeUpdate();
             deleteSucceed = result==1;
+            conn.close();
 
         }  catch (SQLException e){
             e.printStackTrace();
         }
         return deleteSucceed;
+    }
 
+    @Override
+    public List<Usr> findAll() {
+        String REQ_FINDALL = "SELECT * FROM Usr";
+        List<Usr> allUsers = new ArrayList<>();
+
+        try {
+            Connection conn = dataSource.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(REQ_FINDALL);
+            pstmt.execute();
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                allUsers.add(Util.convertResultsetToUser(rs));
+            }
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return allUsers;
     }
 }

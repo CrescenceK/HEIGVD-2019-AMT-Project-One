@@ -1,9 +1,10 @@
 package ch.heigvd.amt.gestionCours.services;
 
-import ch.heigvd.amt.gestionCours.model.Role;
+
 import ch.heigvd.amt.gestionCours.model.Usr;
 
-import java.sql.SQLException;
+import java.util.List;
+
 
 public interface IntUsrManager {
 
@@ -11,4 +12,5 @@ public interface IntUsrManager {
     public Usr updateUsr(Usr usr);
     public Usr findUsr(Usr usr);
     public boolean deleteUsr(String username);
+    public List<Usr> findAll();
 }
