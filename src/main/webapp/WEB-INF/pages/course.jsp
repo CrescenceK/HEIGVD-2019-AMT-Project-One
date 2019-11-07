@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -87,9 +88,7 @@
                         <div class="panel-heading">
                             <h3 class="panel-title">Courses name</h3>
                             <div class="pull-right">
-							<span class="clickable filter" data-toggle="tooltip" title="Toggle table filter" data-container="body">
-								<i class="glyphicon glyphicon-filter"></i>
-							</span>
+                                <h3 class="panel-title">course_name</h3>
                             </div>
                         </div>
                         <div class="panel-body">
@@ -99,41 +98,19 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>students Name</th>
+                                <th>students firstname</th>
+                                <th>students lastname</th>
                                 <th>Group</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Youndzo Francine</td>
-                                <td>G1</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Yimnaing Crescence</td>
-                                <td>G1</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Itambe Roderic</td>
-                                <td>G1</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>Beku Natacha</td>
-                                <td>G2</td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>Kengne Arielle</td>
-                                <td>G2</td>
-                            </tr>
-                            <tr>
-                                <td>6</td>
-                                <td>Bekam Vivien</td>
-                            </tr>
-                            </tbody>
+                            <c:forEach items="${usr}" var="usrManager">
+                                <tbody>
+                                     <tr>
+                                        <td>${usr.firstname}</td>
+                                        <td>${usr.lastname}</td>
+                                    </tr>
+                                </tbody>
+                            </c:forEach>
                         </table>
                     </div>
                 </div>
@@ -143,16 +120,14 @@
 
 </div>
 
-
-
 </body>
 
-<script src="./assets/js/jquery-1.10.2.js" type="text/javascript"></script>
-<script src="./assets/js/jquery-ui-1.10.4.custom.min.js" type="text/javascript"></script>
 
-<script src="./bootstrap3/js/bootstrap.js" type="text/javascript"></script>
 
 <!--  Plugins -->
+<script src="./assets/js/jquery-1.10.2.js" type="text/javascript"></script>
+<script src="./assets/js/jquery-ui-1.10.4.custom.min.js" type="text/javascript"></script>
+<script src="./bootstrap3/js/bootstrap.js" type="text/javascript"></script>
 <script src="./assets/js/ct-paper-checkbox.js"></script>
 <script src="./assets/js/ct-paper-radio.js"></script>
 <script src="./assets/js/bootstrap-select.js"></script>

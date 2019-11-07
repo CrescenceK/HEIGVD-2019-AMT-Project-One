@@ -42,7 +42,7 @@ public class Util {
 
     public static Course convertResultsetToCourse(ResultSet rs) throws SQLException {
 
-        String course_name = rs.getString("course_name");
+        String course_name = rs.getString("course_name").toString();
         int credit_etcs = rs.getInt("credit_etcs");
 
         return new Course(course_name, credit_etcs);

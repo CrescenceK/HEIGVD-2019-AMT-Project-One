@@ -1,5 +1,9 @@
 package ch.heigvd.amt.gestionCours.presentation;
 
+import ch.heigvd.amt.gestionCours.services.IntCourseManager;
+import ch.heigvd.amt.gestionCours.services.UsrManager;
+
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,9 +14,13 @@ import java.io.IOException;
 @WebServlet(urlPatterns = "/student")
 public class StudentsServlet extends HttpServlet {
 
+    @EJB
+    private UsrManager usrManager;
     @Override
     protected void doGet(HttpServletRequest req,  HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/pages/student.jsp").forward(req, resp);
+        req.setAttribute("usrManager", usrManager.findAll());
+        req.getRequestDispatcher("/WEB-INF/pages/course.jsp").forward(req, resp);
+
     }
 
     @Override
