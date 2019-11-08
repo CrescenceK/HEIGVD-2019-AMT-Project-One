@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -98,41 +100,17 @@
                         <table class="table table-hover" id="dev-table">
                             <thead>
                             <tr>
-                                <th>#</th>
-                                <th>students Name</th>
-                                <th>Group</th>
+                                <th>Course name</th>
+                                <th>credit etcs</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Youndzo Francine</td>
-                                <td>G1</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Yimnaing Crescence</td>
-                                <td>G1</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Itambe Roderic</td>
-                                <td>G1</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>Beku Natacha</td>
-                                <td>G2</td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>Kengne Arielle</td>
-                                <td>G2</td>
-                            </tr>
-                            <tr>
-                                <td>6</td>
-                                <td>Bekam Vivien</td>
-                            </tr>
+                                <c:forEach items="$(courses)" var="course">
+                                    <tr>
+                                        <td>${course.course_name}</td>
+                                        <td>${course.credit_etcs}</td>
+                                    </tr>
+                                </c:forEach>
                             </tbody>
                         </table>
                     </div>
