@@ -56,13 +56,14 @@
               <strong> Sign in to continue</strong>
             </div>
             <div class="panel-body">
-              <form role="form" action="#" method="POST">
+              <form role="form" action="usr" method="POST">
                 <fieldset>
                   <div class="row">
                     <div class="center-block">
                       <img class="profile-img"
                            src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120" alt="">
                     </div>
+                    <p> ${message}</p>
                   </div>
                   <div class="row">
                     <div class="col-sm-12 col-md-10  col-md-offset-1 ">
@@ -71,7 +72,7 @@
 												<span class="input-group-addon">
 													<i class="glyphicon glyphicon-user"></i>
 												</span>
-                          <input class="form-control" placeholder="Username" name="loginname" type="text" autofocus>
+                          <input class="form-control" placeholder="Username" name="username" type="text" autofocus>
                         </div>
                       </div>
                       <div class="form-group">
@@ -83,7 +84,9 @@
                         </div>
                       </div>
                       <div class="form-group">
+
                         <input type="submit" class="btn btn-lg btn-primary btn-block" value="Sign in">
+
                       </div>
                     </div>
                   </div>

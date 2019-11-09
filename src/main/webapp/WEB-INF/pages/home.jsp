@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -87,51 +88,20 @@
                         <div class="panel-heading">
                             <h3 class="panel-title">Courses list</h3>
                             <div class="pull-right">
-							<span class="clickable filter" data-toggle="tooltip" title="Toggle table filter" data-container="body">
-								<i class="glyphicon glyphicon-filter"></i>
-							</span>
+                                <h3 class="panel-title">Credit_etcs</h3>
                             </div>
                         </div>
                         <div class="panel-body">
                             <input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Filter Developers" />
                         </div>
                         <table class="table table-hover" id="dev-table">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Course name</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>AMT</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>GET</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>STI</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>RTA</td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>TRM</td>
-                            </tr>
-                            <tr>
-                                <td>6</td>
-                                <td>AIT</td>
-                            </tr>
-                            <tr>
-                                <td>7</td>
-                                <td>GRX</td>
-                            </tr>
-                            </tbody>
+                            <c:forEach items="${usrs}" var="usr">
+                                <tr>
+                                    <td> ${usr.firstName}</td>
+                                    <td> ${usr.lastName}</td>
+                                    <td> ${usr.usr_role}</td>
+                                </tr>
+                            </c:forEach>
                         </table>
                     </div>
                 </div>

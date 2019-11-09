@@ -11,7 +11,7 @@ public interface UsrDAOLocal {
 
     public Usr createUsr(Usr usr);
     public Usr updateUsr(Usr usr);
-    public Usr findUsr(Usr usr);
+    public Usr findUsr(String username);
     public boolean deleteUsr(String username);
     public List<Usr> findAll();
 }

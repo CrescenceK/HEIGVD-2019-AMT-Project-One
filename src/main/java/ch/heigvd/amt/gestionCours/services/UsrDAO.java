@@ -44,7 +44,7 @@ public class UsrDAO implements UsrDAOLocal {
     @Override
     public Usr updateUsr(Usr usr) {
 
-        Usr usrToUpdate = findUsr(usr);
+        Usr usrToUpdate = findUsr(usr.getUsername());
         if(!usrToUpdate.getUsername().equals(usr.getUsername())){
             usrToUpdate.setUsername(usr.getUsername());
         }
@@ -70,26 +70,27 @@ public class UsrDAO implements UsrDAOLocal {
     }
 
     @Override
-    public Usr findUsr(Usr usr) {
+    public Usr findUsr(String usr) {
 
         String REQ_FIND = "SELECT * FROM Usr WHERE username = ?";
+         Usr user = null;
 
         try {
             Connection conn = dataSource.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(REQ_FIND);
 
-            pstmt.setString(1, usr.getUsername());
+            pstmt.setString(1, usr);
             ResultSet result = pstmt.executeQuery();
 
             if (result.next()) {
-                usr = Util.convertResultsetToUser(result);
+                user = Util.convertResultsetToUser(result);
             }
             conn.close();
 
         }  catch (SQLException e){
         e.printStackTrace();
     }
-        return usr;
+        return user;
     }
 
     @Override

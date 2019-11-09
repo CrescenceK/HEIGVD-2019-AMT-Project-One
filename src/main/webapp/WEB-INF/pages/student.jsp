@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link href="./assets/css/student.css" rel="stylesheet" />
 
@@ -34,22 +35,24 @@
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     <table class="table table-hover table-sm table-properties">
-                        <tr v-show="user.sub">
-                            <th>Firstname</th>
-                            <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 20rem;">{{user.sub}}</td>
-                        </tr>
-                        <tr v-show="user.uid">
-                            <th>Lastname</th>
-                            <td>{{user.uid}}</td>
-                        </tr>
-                        <tr v-show="user.nickname">
-                            <th>Username</th>
-                            <td>{{user.nickname}}</td>
-                        </tr>
-                        <tr v-show="user.password">
-                            <th>password</th>
-                            <td>{{user.password}}</td>
-                        </tr>
+                            <c:forEach items="${usrs}" var="usr">
+                                <tr v-show="user.sub">
+                                    <th>Firstname</th>
+                                    <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 20rem;">{{usr.firstname}}</td>
+                                </tr>
+                                <tr v-show="user.uid">
+                                    <th>Lastname</th>
+                                    <td>{{usr.lastname}}</td>
+                                </tr>
+                                <tr v-show="user.nickname">
+                                    <th>Username</th>
+                                    <td>{{usr.username}}</td>
+                                </tr>
+                                <tr v-show="user.password">
+                                    <th>password</th>
+                                    <td>{{usr.password}}</td>
+                                </tr>
+                            </c:forEach>
 
                     </table>
                 </div>
