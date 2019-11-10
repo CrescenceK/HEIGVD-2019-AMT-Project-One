@@ -5,16 +5,14 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-//@Builder
+@Builder(toBuilder = true)
 @Getter
 @Setter
 @EqualsAndHashCode
 public class Groupe {
-    private String group_name;
-    private int nbrStudentPerGroup;
 
-    public Groupe(String group_name, int nbrStudentPerGroup) {
-        this.group_name = group_name;
-        this.nbrStudentPerGroup = nbrStudentPerGroup;
-    }
+    private String groupe_name;
+    private int student_per_group;
+
+
 }

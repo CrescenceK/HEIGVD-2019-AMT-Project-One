@@ -7,22 +7,15 @@ import lombok.Setter;
 
 @Getter
 @Setter
-//@Builder
+@Builder(toBuilder = true)
 @EqualsAndHashCode
 public class Usr {
 
-    private String firstName;
-    private String lastName;
+    private String first_name;
+    private String last_name;
     private String username;
     private String password;
     private int usr_role;
 
-    public Usr(String firstName, String lastName, String username, String password, int usr_role) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.username = username;
-        this.password = password;
-        this.usr_role = usr_role;
-    }
 }
 

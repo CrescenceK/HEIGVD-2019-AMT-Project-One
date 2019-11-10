@@ -1,5 +1,6 @@
 package ch.heigvd.amt.gestionCours.web;
 
+import ch.heigvd.amt.gestionCours.datastore.exception.KeyNotFoundException;
 import ch.heigvd.amt.gestionCours.model.Usr;
 import ch.heigvd.amt.gestionCours.services.UsrDAOLocal;
 
@@ -25,7 +26,12 @@ public class UsrServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //super.doPost(req, resp);
 
-       Usr user= usrManager.findUsr(req.getParameter("username"))  ;
+        Usr user = null;
+        try {
+            user = usrManager.find(req.getParameter("username"));
+        } catch (KeyNotFoundException e) {
+            e.printStackTrace();
+        }
         String message = "";
        if(user != null && user.getPassword()== req.getParameter("password"))   {
 

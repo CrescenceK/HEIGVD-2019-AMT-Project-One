@@ -7,11 +7,6 @@ import javax.ejb.Local;
 import java.util.List;
 
 @Local
-public interface UsrDAOLocal {
+public interface UsrDAOLocal extends IDAO<String, Usr>{
 
-    public Usr createUsr(Usr usr);
-    public Usr updateUsr(Usr usr);
-    public Usr findUsr(String username);
-    public boolean deleteUsr(String username);
-    public List<Usr> findAll();
 }

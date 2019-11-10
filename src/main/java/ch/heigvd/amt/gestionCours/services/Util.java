@@ -4,7 +4,6 @@ import ch.heigvd.amt.gestionCours.model.Course;
 import ch.heigvd.amt.gestionCours.model.Groupe;
 import ch.heigvd.amt.gestionCours.model.Role;
 import ch.heigvd.amt.gestionCours.model.Usr;
-import lombok.Builder;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,7 +19,11 @@ public class Util {
         String password = rs.getString("password");
         int usr_role = rs.getInt("usr_role");
 
-        return new Usr(username, firstname, lastname, password, usr_role);
+       Usr usr = Usr.builder().username(username).first_name(firstname).last_name(lastname)
+                              .password(password).usr_role(usr_role).build();
+
+       return usr;
+
     }
 
     public static Role convertResultsetToRole(ResultSet rs) throws SQLException{
@@ -28,7 +31,8 @@ public class Util {
         int role_id = rs.getInt("role_id");
          String role_name = rs.getString("role_name");
 
-         return new Role(role_id, role_name);
+         Role role = Role.builder().role_name(role_name).role_id(role_id).build();
+         return role;
     }
 
     public static Groupe convertResultsetToGroupe(ResultSet rs) throws SQLException {
@@ -36,7 +40,9 @@ public class Util {
         String group_name = rs.getString("group_name");
         int nbrStudentPerGroup = rs.getInt("nbrStudentPerGroup");
 
-        return new Groupe(group_name, nbrStudentPerGroup);
+        Groupe groupe = Groupe.builder().groupe_name(group_name)
+                        .student_per_group(nbrStudentPerGroup).build();
+        return groupe;
     }
 
 
@@ -45,7 +51,8 @@ public class Util {
         String course_name = rs.getString("course_name");
         int credit_etcs = rs.getInt("credit_etcs");
 
-        return new Course(course_name, credit_etcs);
+        Course course = Course.builder().course_name(course_name).credit_etcs(credit_etcs).build();
+        return course;
     }
 
 }
