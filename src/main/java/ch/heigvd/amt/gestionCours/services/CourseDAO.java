@@ -1,5 +1,7 @@
 package ch.heigvd.amt.gestionCours.services;
 
+import ch.heigvd.amt.gestionCours.datastore.exception.DuplicateKeyException;
+import ch.heigvd.amt.gestionCours.datastore.exception.KeyNotFoundException;
 import ch.heigvd.amt.gestionCours.model.Course;
 import ch.heigvd.amt.gestionCours.model.Usr;
 
@@ -19,82 +21,44 @@ public class CourseDAO implements CourseDAOLocal {
     @Resource(lookup = "jdbc/GestionDesCours")
     private DataSource dataSource;
 
-
     @Override
-    public Course createCourse(Course course) {
-
+    public Course create(Course entity) throws DuplicateKeyException {
         String REQ_ADD = "INSERT INTO Course (course_name, creditETCS)" + "VALUES(?, ?)";
         try {
             Connection conn = dataSource.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(REQ_ADD);
-            pstmt.setString(1, course.getCourse_name());
-            pstmt.setInt(2, course.getCredit_etcs());
+            pstmt.setString(1, entity.getCourse_name());
+            pstmt.setInt(2, entity.getCredit_etcs());
             pstmt.executeUpdate();
             conn.close();
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-        return course;
+        return entity;
     }
 
     @Override
-    public Course updateCourse(Course course) {
-
-        Course courseToUpdate = findCourse(course);
-
-        if(courseToUpdate.getCredit_etcs() != course.getCredit_etcs()){
-            courseToUpdate.setCredit_etcs(course.getCredit_etcs());
-        }
-
-        courseToUpdate.setCourse_name(course.getCourse_name()); // servlet spécial pour changer le nom d'un cour car clé primaire
-        createCourse(courseToUpdate);
-
-        return courseToUpdate;
-    }
-
-    @Override
-    public Course findCourse(Course course) {
+    public Course find(String course_name) throws KeyNotFoundException {
         String REQ_FIND = "SELECT * FROM Usr WHERE course_name = ?";
+        Connection conn = null;
 
         try {
-            Connection conn = dataSource.getConnection();
+            conn = dataSource.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(REQ_FIND);
-
-            pstmt.setString(1, course.getCourse_name());
+            pstmt.setString(1, course_name);
             ResultSet result = pstmt.executeQuery();
-
-            if (result.next()) {
-                course = Util.convertResultsetToCourse(result);
+            boolean hasRecord = result.next();
+            if (!hasRecord) {
+                throw new KeyNotFoundException("Could not find course with course_name = " + course_name);
             }
             conn.close();
-
-        }  catch (SQLException e){
+            Course course = Util.convertResultsetToCourse(result);
+            return course;
+        } catch (SQLException e) {
             e.printStackTrace();
+            throw new Error(e);
         }
-        return course;
-    }
-
-
-    @Override
-    public boolean deleteCourse(String course_name) {
-        String REQ_DEL = "DELETE FROM Course WHERE course_name = ?";
-        boolean deleteCourseSucceed = false;
-
-        try {
-            Connection conn = dataSource.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(REQ_DEL);
-
-            pstmt.setString(1, course_name);
-            int result = pstmt.executeUpdate();
-            deleteCourseSucceed = result==1;
-            conn.close();
-
-        }  catch (SQLException e){
-            e.printStackTrace();
-        }
-
-        return deleteCourseSucceed;
     }
 
     @Override
@@ -118,7 +82,62 @@ public class CourseDAO implements CourseDAOLocal {
     }
 
     @Override
-    public List<Course> coursesFollowedByStudent(Usr usr) {
+    public void update(Course entity) throws KeyNotFoundException {
+
+    String REQ_UPDATE = "UPDATE Course SET course_name=?, credit_etcs=?";
+    Connection conn = null;
+        try {
+            conn = dataSource.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(REQ_UPDATE);
+            pstmt.setString(1, entity.getCourse_name());
+            pstmt.setInt(2, entity.getCredit_etcs());
+            int numberOfUpdatedUsers = pstmt.executeUpdate();
+            conn.close();
+            if (numberOfUpdatedUsers != 1) {
+                throw new KeyNotFoundException("Could not find Course with course_name = " + entity.getCourse_name());
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+
+     /*   Course courseToUpdate = find(entity.getCourse_name());
+        if(courseToUpdate.getCredit_etcs()!=entity.getCredit_etcs()) {
+             courseToUpdate.setCredit_etcs(entity.getCredit_etcs());
+        }
+
+        if(!courseToUpdate.getCourse_name().equals(entity.getCourse_name())) {
+            courseToUpdate.setCourse_name(entity.getCourse_name());
+        }
+        try {
+        } catch (DuplicateKeyException e) {
+            e.printStackTrace();
+        }*/
+    }
+
+    @Override
+    public boolean delete(String course_name) throws KeyNotFoundException {
+        String REQ_DEL = "DELETE FROM Course WHERE course_name = ?";
+        boolean deleteCourseSucceed = false;
+
+        try {
+            Connection conn = dataSource.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(REQ_DEL);
+
+            pstmt.setString(1, course_name);
+            int result = pstmt.executeUpdate();
+            deleteCourseSucceed = result==1;
+            conn.close();
+
+        }  catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return deleteCourseSucceed;
+    }
+
+    @Override
+    public List<Course> coursesFollowedByStudent(String username) {
 
         String REQ_FOLLOWED_COURSES = "SELECT * FROM Course INNER JOIN HavingCourses ON " +
                 "Course.course_name = HavingCourses.having_course_name WHERE student_username = ?";
@@ -138,12 +157,34 @@ public class CourseDAO implements CourseDAOLocal {
             e.printStackTrace();
         }
         return studentCourses;
+    }
+
+    @Override
+    public List<Usr> usersTakingCourse(String course_name){
+
+        final String REQ_STUDENT = "SELECT * FROM Usr INNER JOIN HavingCourses ON " +
+                "Usr.username = HavingCourses.student_username WHERE having_course_name = ?";
+
+        List<Usr> students = new ArrayList<>();
+
+        try {
+            Connection conn = dataSource.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(REQ_STUDENT);
+            pstmt.execute();
+            ResultSet result = pstmt.executeQuery();
+            while (result.next()) {
+                students.add(Util.convertResultsetToUser(result));
+            }
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return students;
 
     }
 
     @Override
-    public List<Course> coursesGivenByProf(Usr usr) {
-
+    public List<Course> coursesGivenByProf(String username) {
         String REQ_GIVEN_COURSES = "SELECT * FROM Course INNER JOIN GivingCourses ON " +
                 "Course.course_name = GivingCourses.giving_course_name WHERE prof_username = ?";
 
