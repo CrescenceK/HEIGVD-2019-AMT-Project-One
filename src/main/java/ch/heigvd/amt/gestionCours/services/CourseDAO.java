@@ -25,7 +25,7 @@ public class CourseDAO implements CourseDAOLocal {
 
     @Override
     public Course create(Course entity) throws DuplicateKeyException {
-        String REQ_ADD = "INSERT INTO Course (course_name, creditETCS)" + "VALUES(?, ?);";
+        String REQ_ADD = "INSERT INTO Course (course_name, credit_etcs)" + "VALUES(?, ?);";
         try {
             Connection conn = dataSource.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(REQ_ADD);
