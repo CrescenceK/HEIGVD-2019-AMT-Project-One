@@ -23,7 +23,7 @@ public class CourseDAO implements CourseDAOLocal {
 
     @Override
     public Course create(Course entity) throws DuplicateKeyException {
-        String REQ_ADD = "INSERT INTO Course (course_name, creditETCS)" + "VALUES(?, ?)";
+        String REQ_ADD = "INSERT INTO Course (course_name, creditETCS)" + "VALUES(?, ?);";
         try {
             Connection conn = dataSource.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(REQ_ADD);
@@ -40,13 +40,12 @@ public class CourseDAO implements CourseDAOLocal {
 
     @Override
     public Course find(String course_name) throws KeyNotFoundException {
-        String REQ_FIND = "SELECT * FROM Usr WHERE course_name = ?";
+        String REQ_FIND = "SELECT * FROM Usr WHERE course_name='" + course_name + "';";
         Connection conn = null;
 
         try {
             conn = dataSource.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(REQ_FIND);
-            pstmt.setString(1, course_name);
             ResultSet result = pstmt.executeQuery();
             boolean hasRecord = result.next();
             if (!hasRecord) {

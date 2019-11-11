@@ -40,10 +40,10 @@ public class UsrServlet extends HttpServlet {
                      req.getRequestDispatcher("/WEB-INF/pages/admin.jsp").forward(req, resp);
            }
            else if(user.getUsr_role()==2)    {
-                      req.getRequestDispatcher("/WEB-INF/pages/teacher.jsp");
+                      req.getRequestDispatcher("/WEB-INF/pages/teacher.jsp").forward(req, resp);
            }
                else if(user.getUsr_role()==3){
-                        req.getRequestDispatcher("/WEB-INF/pages/student.jsp");
+                        req.getRequestDispatcher("/WEB-INF/pages/student.jsp").forward(req, resp);
            }
        }
        else{
