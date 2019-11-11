@@ -48,15 +48,13 @@ public class UsrDAO implements UsrDAOLocal  {
 
     @Override
     public Usr find(String username) throws KeyNotFoundException {
-        String REQ_FIND = "SELECT username, first_name, last_name, password, role_id FROM Usr WHERE username = ?";
+        String REQ_FIND = "SELECT * FROM Usr WHERE username=" + "'" + username + "'"+ ";";
         Connection conn = null;
 
         try {
             conn = dataSource.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(REQ_FIND);
-            pstmt.setString(1, username);
             ResultSet result = pstmt.executeQuery();
-            conn.close();
             boolean hasRecord = result.next();
             if (!hasRecord) {
                 throw new KeyNotFoundException("Could not find user with username = " + username);
