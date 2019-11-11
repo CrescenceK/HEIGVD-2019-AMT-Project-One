@@ -1,132 +1,223 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<link href="./assets/css/student.css" rel="stylesheet" />
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="./assets/paper_img/favicon.ico">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
 
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
+    <base href="${pageContext.request.contextPath}/"/>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+    <link href="./assets/css/ct-paper.css" rel="stylesheet"/>
+    <link href="./assets/css/demo.css" rel="stylesheet" />
+    <link href="./assets/css/examples.css" rel="stylesheet" />
+    <link href="./assets/css/registration1.css" rel="stylesheet" />
+    <link href="./assets/css/coming-sssoon.css" rel="stylesheet" />
+    <link href="./assets/css/profile1.css" rel="stylesheet" />
+    <!--     Fonts and icons     -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+    <link rel=”stylesheet” href=”//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css”>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link rel=”stylesheet” href=”css/datatables/datatables.css”>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!--  fonts for list -->
 
-<div id="user" class="container profile" style="display: none;">
-    <div class="row">
-        <div class="col text-center mt-3">
-            <img alt="picture" v-bind:src="user.picture" class="img-lg rounded-circle border shadow" />
-            <h2 class="mt-3">{{ user.name }}</h2>
-        </div>
-    </div>
-
-    <div class="row mt-2">
-        <div class="col">
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true"> Teacher Profile</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">My teaching Courses</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="address-tab" data-toggle="tab" href="#address" role="tab" aria-controls="address" aria-selected="false">My TP groups</a>
+    <title>Registration page</title>
+</head>
+<body>
+<div class="register-background">
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <nav class="mb-1 navbar navbar-expand-lg navbar-dark default-color">
+        <a class="navbar-brand" href="#">GC</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
+                aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+            <ul class="navbar-nav ml-auto nav-flex-icons">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-user"> Login </i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-default"
+                         aria-labelledby="navbarDropdownMenuLink-333">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
                 </li>
             </ul>
-            <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                    <table class="table table-hover table-sm table-properties">
-                        <tr v-show="user.sub">
-                            <th>Firstname</th>
-                            <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 20rem;">{{user.sub}}</td>
-                        </tr>
-                        <tr v-show="user.uid">
-                            <th>Lastname</th>
-                            <td>{{user.uid}}</td>
-                        </tr>
-                        <tr v-show="user.nickname">
-                            <th>Username</th>
-                            <td>{{user.nickname}}</td>
-                        </tr>
-                        <tr v-show="user.password">
-                            <th>password</th>
-                            <td>{{user.password}}</td>
-                        </tr>
-
-                    </table>
-                </div>
-
-                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                    <table class="table table-hover table-sm table-properties">
-                        <tr v-show="user.email">
-                            <th>email</th>
-                            <td>{{user.email}}</td>
-                        </tr>
-                        <tr v-show="user.email_verified">
-                            <th>email verified</th>
-                            <td>{{user.email_verified}}</td>
-                        </tr>
-                        <tr v-show="user.phone_number">
-                            <th>phone number</th>
-                            <td>{{user.phone_number}}</td>
-                        </tr>
-                        <tr v-show="user.phone_number_verified">
-                            <th>phone number verified</th>
-                            <td>{{user.phone_number_verified}}</td>
-                        </tr>
-                    </table>
-                </div>
-
-                <div class="tab-pane fade" id="address" role="tabpanel" aria-labelledby="address-tab">
-                    <table class="table table-hover table-sm table-properties">
-                        <tr v-show="user.address.country">
-                            <th>country</th>
-                            <td>{{user.address.country}}</td>
-                        </tr>
-                        <tr v-show="user.address.postal_code">
-                            <th>postal code</th>
-                            <td>{{user.address.postal_code}}</td>
-                        </tr>
-                        <tr v-show="user.address.locality">
-                            <th>locality</th>
-                            <td>{{user.address.locality}}</td>
-                        </tr>
-                        <tr v-show="user.address.region">
-                            <th>region</th>
-                            <td>{{user.address.region}}</td>
-                        </tr>
-                        <tr v-show="user.address.street_address">
-                            <th>street address</th>
-                            <td>{{user.address.street_address}}</td>
-                        </tr>
-                        <tr v-show="user.address.formatted">
-                            <th>formatted</th>
-                            <td>{{user.address.formatted}}</td>
-                        </tr>
-                    </table>
-                </div>
-
-                <div class="tab-pane fade" id="links" role="tabpanel" aria-labelledby="links-tab">
-                    <table class="table table-hover table-sm table-properties">
-                        <tr v-show="user['@id']">
-                            <th>@id</th>
-                            <td><a v-bind:href="user['@id']">{{user["@id"]}}</a></td>
-                        </tr>
-                        <tr v-show="user.me">
-                            <th>me</th>
-                            <td><a v-bind:href="user.me">{{user.me}}</a></td>
-                        </tr>
-                        <tr v-show="user.website">
-                            <th>website</th>
-                            <td><a v-bind:href="user.website">{{user.website}}</a></td>
-                        </tr>
-                        <tr v-show="user.profile">
-                            <th>profile</th>
-                            <td><a v-bind:href="user.profile">{{user.profile}}</a></td>
-                        </tr>
-                        <tr v-show="user.webmail">
-                            <th>webmail</th>
-                            <td><a v-bind:href="user.webmail">{{user.webmail}}</a></td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
         </div>
+    </nav>
+    <div>
+        <div class="container emp-profile">
+            <form method="post">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="profile-img">
+                            <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
+                            <div class="file btn btn-lg btn-primary">
+                                Change Photo
+                                <input type="file" name="file"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="profile-head">
+                            <h5>
+                                Kshiti Ghelani
+                            </h5>
+                            <h6>
+                                Web Developer and Designer
+                            </h6>
+                            <p class="proile-rating">RANKINGS : <span>8/10</span></p>
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="profile-work">
+                            <p>Mes cours</p>
+
+                            </thead>
+                            <c:forEach items="${coursebyprof}" var="usr">
+                                <tbody>
+                                <tr>
+                                    <td>${usr.firstname}</td>
+                                    <td>${usr.lastname}</td>
+                                </tr>
+
+                                </tbody>
+
+                                <a href="">${usr.course_name}</a><br/>
+                            </c:forEach>
+
+
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="tab-content profile-tab" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Username</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>${users.username}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Lastname</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>${users.username}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Profession</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>${usr.last_name}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Experience</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>Expert</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Hourly Rate</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>10$/hr</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Total Projects</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>230</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>English Level</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>Expert</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Availability</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>6 months</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label>Your Bio</label><br/>
+                                        <p>Your detail description</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
     </div>
 </div>
-<script src="./assets/js/student.js"></script>
+</body>
+<script src="./assets/js/jquery-1.10.2.js" type="text/javascript"></script>
+<script src="./assets/js/jquery-ui-1.10.4.custom.min.js" type="text/javascript"></script>
+
+<script src="./bootstrap3/js/bootstrap.js" type="text/javascript"></script>
+
+<!--  Plugins -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="./assets/js/ct-paper-checkbox.js"></script>
+<script src="./assets/js/pagination.js"></script>
+<script src="./assets/js/ct-paper-radio.js"></script>
+<script src="./assets/js/bootstrap-select.js"></script>
+<script src="./assets/js/bootstrap-datepicker.js"></script>
+<script src="./assets/js/registration1.js"></script>
+<script src="./assets/js/ct-paper.js"></script>
+<script src="./assets/js/jquery.js" type="text/javascript"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+
+<script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
+</html>
