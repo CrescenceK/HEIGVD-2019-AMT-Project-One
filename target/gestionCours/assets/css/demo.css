@@ -992,3 +992,10 @@ pre.prettyprint{
 .example-pages{
     margin-top: 50px;
 }
+.paging_full_numbers a.paginate_button {
+    color: #0000FF !important;
+    font-size: 18px;
+}
+.paging_full_numbers a.paginate_active {
+    color: #0000FF !important;
+}

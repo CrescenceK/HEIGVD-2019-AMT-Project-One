@@ -1,9 +1,6 @@
 package ch.heigvd.amt.gestionCours.services;
 
-import ch.heigvd.amt.gestionCours.model.Course;
-import ch.heigvd.amt.gestionCours.model.Groupe;
-import ch.heigvd.amt.gestionCours.model.Role;
-import ch.heigvd.amt.gestionCours.model.Usr;
+import ch.heigvd.amt.gestionCours.model.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -55,4 +52,14 @@ public class Util {
         return course;
     }
 
+
+    public static SpecialCourse convertResultsetToSpecialCourse(ResultSet rs) throws SQLException {
+
+        Course course = null;
+        int nb_std = rs.getInt("nb_std");
+        Usr prof = null;
+
+        SpecialCourse spcourse = SpecialCourse.builder().course(course).prof(prof).nb_std(nb_std).build();
+        return spcourse;
+    }
 }

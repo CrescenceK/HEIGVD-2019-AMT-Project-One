@@ -100,20 +100,17 @@
                         <table class="table table-hover" id="dev-table">
                             <thead>
                             <tr>
-                                <th>#</th>
-                                <th>students firstname</th>
-                                <th>students lastname</th>
-                                <th>Group</th>
+                                <th>Course name</th>
+                                <th>credit etcs</th>
                             </tr>
                             </thead>
-                            <c:forEach items="${usr}" var="usrs">
-                                <tbody>
-                                <tr>
-                                    <td>${usr.firstname}</td>
-                                    <td>${usr.lastname}</td>
-                                </tr>
-                                </tbody>
-                            </c:forEach>
+                            <tbody>
+                                <c:forEach items="$(courses)" var="course">
+                                    <tr>
+                                        <td>${course.course_name}</td>
+                                        <td>${course.credit_etcs}</td>
+                                    </tr>
+                                </c:forEach>
                             </tbody>
                         </table>
                     </div>

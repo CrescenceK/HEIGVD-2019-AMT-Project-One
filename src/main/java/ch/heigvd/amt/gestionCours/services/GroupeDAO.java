@@ -41,7 +41,7 @@ public class GroupeDAO implements GroupeDAOLocal {
     @Override
     public Groupe find(String groupe_name) throws KeyNotFoundException {
 
-        String REQ_FIND = "SELECT * FROM Usr WHERE groupe_name = '" + groupe_name + "';";
+        String REQ_FIND = "SELECT * FROM Usr WHERE groupe_name =" + "'" + groupe_name + "'"+ ";";
         Connection conn = null;
 
         try {

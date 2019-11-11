@@ -3,6 +3,7 @@ package ch.heigvd.amt.gestionCours.services;
 import ch.heigvd.amt.gestionCours.datastore.exception.DuplicateKeyException;
 import ch.heigvd.amt.gestionCours.datastore.exception.KeyNotFoundException;
 import ch.heigvd.amt.gestionCours.model.Course;
+import ch.heigvd.amt.gestionCours.model.SpecialCourse;
 import ch.heigvd.amt.gestionCours.model.Usr;
 
 import javax.annotation.Resource;
@@ -14,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
 
 @Stateless
 public class CourseDAO implements CourseDAOLocal {
@@ -40,7 +42,8 @@ public class CourseDAO implements CourseDAOLocal {
 
     @Override
     public Course find(String course_name) throws KeyNotFoundException {
-        String REQ_FIND = "SELECT * FROM Usr WHERE course_name='" + course_name + "';";
+
+        String REQ_FIND = "SELECT * FROM Usr WHERE course_name=" + "'" + course_name + "'"+ ";";
         Connection conn = null;
 
         try {
@@ -136,20 +139,29 @@ public class CourseDAO implements CourseDAOLocal {
     }
 
     @Override
-    public List<Course> coursesFollowedByStudent(String username) {
+    public List<SpecialCourse> coursesFollowedByStudent(String username) {
 
-        String REQ_FOLLOWED_COURSES = "SELECT * FROM Course INNER JOIN HavingCourses ON " +
-                "Course.course_name = HavingCourses.having_course_name WHERE student_username = ?";
+        //String REQ_FOLLOWED_COURSES = "SELECT * from havingcourses WHERE student_username='" + username + "';";
+        String REQ_FOLLOWED_COURSES = "SELECT course.* FROM Course INNER JOIN HavingCourses ON " +
+                "Course.course_name = HavingCourses.having_course_name WHERE student_username ='" + username + "' ORDER BY 1;";
 
-        List<Course> studentCourses = new ArrayList<>();
+        List<SpecialCourse> studentCourses = new ArrayList<>();
 
         try {
             Connection conn = dataSource.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(REQ_FOLLOWED_COURSES);
             pstmt.execute();
             ResultSet result = pstmt.executeQuery();
+
             while (result.next()) {
-                studentCourses.add(Util.convertResultsetToCourse(result));
+                String course_name = result.getString("course_name");
+                Usr prof = getProfByCourse(course_name);
+                SpecialCourse spc = SpecialCourse.builder()
+                        .course(Util.convertResultsetToCourse(result))
+                        .prof(prof)
+                        .nb_std(usersTakingCourse(course_name).size())
+                        .build();
+                studentCourses.add(spc);
             }
             conn.close();
         } catch (SQLException e) {
@@ -162,7 +174,8 @@ public class CourseDAO implements CourseDAOLocal {
     public List<Usr> usersTakingCourse(String course_name){
 
         final String REQ_STUDENT = "SELECT * FROM Usr INNER JOIN HavingCourses ON " +
-                "Usr.username = HavingCourses.student_username WHERE having_course_name = ?";
+                "Usr.username = HavingCourses.student_username WHERE having_course_name = " +
+                "'" + course_name + "';";
 
         List<Usr> students = new ArrayList<>();
 
@@ -202,5 +215,29 @@ public class CourseDAO implements CourseDAOLocal {
             e.printStackTrace();
         }
         return profCourses;
+    }
+
+    @Override
+    public Usr getProfByCourse(String course_name) {
+        String REQ_GIVEN_COURSES = "SELECT usr.* FROM GivingCourses INNER JOIN usr ON  prof_username = username " +
+                "WHERE giving_course_name = '" + course_name + "';";
+        Connection conn;
+        Usr ret = null;
+        ResultSet result = null;
+        try {
+            conn = dataSource.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(REQ_GIVEN_COURSES);
+            pstmt.execute();
+            result = pstmt.executeQuery();
+            conn.close();
+            while(result.next())
+                ret = Util.convertResultsetToUser(result);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            conn = null;
+        }
+        System.out.println(ret);
+        return ret;
     }
 }

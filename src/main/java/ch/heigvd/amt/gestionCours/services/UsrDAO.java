@@ -55,7 +55,6 @@ public class UsrDAO implements UsrDAOLocal  {
             conn = dataSource.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(REQ_FIND);
             ResultSet result = pstmt.executeQuery();
-            conn.close();
             boolean hasRecord = result.next();
             if (!hasRecord) {
                 throw new KeyNotFoundException("Could not find user with username = " + username);
