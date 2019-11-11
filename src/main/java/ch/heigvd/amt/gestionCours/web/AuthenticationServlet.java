@@ -59,7 +59,9 @@ public class AuthenticationServlet extends HttpServlet {
                 //recherche d'un user dans la la base de données
                 user = usrManager.find(name);
                 req.setAttribute("coursesFollowed", course.coursesFollowedByStudent(user.getUsername()));
+
                 req.setAttribute("users", usrManager.find(user.getUsername()));
+                req.setAttribute("coursebyprof", course.coursesGivenByProf(user.getUsername()));
                 //verification du role du user afin de le rediriger vers sa page correspondante
                 if ((user != null) && user.getPassword().compareTo(pwd) == 0) {
                     HttpSession session = req.getSession();
