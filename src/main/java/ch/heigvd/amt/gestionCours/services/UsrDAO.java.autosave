@@ -1,2 +1,0 @@
-String SQL = "SELECT h1.having_course_name, count(h2.student_username) FROM HavingCourses h1 INNER JOIN havingcourses h2 " +
-        "on h1.having_course_name = h2.having_course_name WHERE h1.student_username = '" + username +"' GROUP BY h1.having_course_name;";

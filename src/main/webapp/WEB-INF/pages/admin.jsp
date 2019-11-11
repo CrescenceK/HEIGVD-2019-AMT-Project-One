@@ -1,5 +1,5 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<link href="./assets/css/admin.css" rel="stylesheet" />
+<link href="./assets/css/admin.css" rel="stylesheet"/>
 
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -9,13 +9,18 @@
 <main>
     <div class="container my-5">
         <div class="card">
-            <button id="add__new__user" type="button" class="btn btn-success position-absolute" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fas fa-plus"></i> Add a new User</button>
+            <a href="/gestionCours/usr_add">
+                <button id="add__new__user" type="button" class="btn btn-success position-absolute" data-toggle="modal"
+                        data-target=".bd-example-modal-lg"><i class="fas fa-plus"></i> Add a new User
+                </button>
+            </a>
+              <p> ${message}</p>
             <table class="table table-hover">
                 <thead>
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">User Name</th>
-                    <th scope="col">Edit User </th>
+                    <th scope="col">Edit User</th>
                     <th scope="col">User info</th>
                 </tr>
                 </thead>
@@ -27,7 +32,7 @@
                         <a class="btn btn-sm btn-primary" href="#"><i class="far fa-edit"></i> edit</a>
                         <a class="btn btn-sm btn-danger" href="#"><i class="fas fa-trash-alt"></i> delete</a>
                     </td>
-                    <td><a class="btn btn-sm btn-info" href="#"><i class="fas fa-info-circle"></i> Details</a> </td>
+                    <td><a class="btn btn-sm btn-info" href="#"><i class="fas fa-info-circle"></i> Details</a></td>
                 </tr>
                 <tr>
                     <th scope="row">2</th>
@@ -36,24 +41,27 @@
                         <a class="btn btn-sm btn-primary" href="#"><i class="far fa-edit"></i> edit</a>
                         <a class="btn btn-sm btn-danger" href="#"><i class="fas fa-trash-alt"></i> delete</a>
                     </td>
-                    <td><a class="btn btn-sm btn-info" href="#"><i class="fas fa-info-circle"></i> Details</a> </td>
+                    <td><a class="btn btn-sm btn-info" href="#"><i class="fas fa-info-circle"></i> Details</a></td>
                 </tr>
                 </tbody>
             </table>
         </div>
 
-            <div class="container bg-info p-5">
+        <div class="container bg-info p-5">
 
-            </div>
+        </div>
 
         <div class="card">
-            <button id="add__new__course" type="button" class="btn btn-success position-absolute" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fas fa-plus"></i> Add a new course</button>
+            <a href="/gestionCours/course_add">
+            <button id="add__new__course" type="button" class="btn btn-success position-absolute" data-toggle="modal"
+                    data-target=".bd-example-modal-lg"><i class="fas fa-plus"></i> Add a new course
+            </button>
             <table class="table table-hover">
                 <thead>
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Course Name</th>
-                    <th scope="col">Edit course </th>
+                    <th scope="col">Edit course</th>
                     <th scope="col">course info</th>
                 </tr>
                 </thead>
@@ -65,7 +73,7 @@
                         <a class="btn btn-sm btn-primary" href="#"><i class="far fa-edit"></i> edit</a>
                         <a class="btn btn-sm btn-danger" href="#"><i class="fas fa-trash-alt"></i> delete</a>
                     </td>
-                    <td><a class="btn btn-sm btn-info" href="#"><i class="fas fa-info-circle"></i> Details</a> </td>
+                    <td><a class="btn btn-sm btn-info" href="#"><i class="fas fa-info-circle"></i> Details</a></td>
                 </tr>
                 <tr>
                     <th scope="row">2</th>
@@ -74,7 +82,7 @@
                         <a class="btn btn-sm btn-primary" href="#"><i class="far fa-edit"></i> edit</a>
                         <a class="btn btn-sm btn-danger" href="#"><i class="fas fa-trash-alt"></i> delete</a>
                     </td>
-                    <td><a class="btn btn-sm btn-info" href="#"><i class="fas fa-info-circle"></i> Details</a> </td>
+                    <td><a class="btn btn-sm btn-info" href="#"><i class="fas fa-info-circle"></i> Details</a></td>
                 </tr>
                 </tbody>
             </table>

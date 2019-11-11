@@ -1,14 +1,12 @@
 package ch.heigvd.amt.gestionCours.model;
 
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @Builder(toBuilder = true)
-@EqualsAndHashCode
+//@EqualsAndHashCode
+//@NoArgsConstructor
 public class Usr {
 
     private String first_name;
