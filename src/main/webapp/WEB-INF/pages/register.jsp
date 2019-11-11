@@ -84,8 +84,9 @@
                         </div>
                       </div>
                       <div class="form-group">
-
-                        <input type="submit" class="btn btn-lg btn-primary btn-block" value="Sign in">
+                        <a href="http://localhost:8080/gestionCours/usr">
+                          <input type="submit" class="btn btn-lg btn-primary btn-block" value="Sign in">
+                        </a>
 
                       </div>
                     </div>
@@ -100,10 +101,10 @@
         </div>
       </div>
     </div>
-    </div>
-    <div class="footer register-footer text-center">
-    </div>
   </div>
+  <div class="footer register-footer text-center">
+  </div>
+</div>
 </div>
 
 </body>

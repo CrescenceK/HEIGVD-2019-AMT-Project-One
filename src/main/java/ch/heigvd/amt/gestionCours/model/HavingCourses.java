@@ -7,7 +7,7 @@ import lombok.Getter;
 
 @Getter
 @EqualsAndHashCode
-@Builder
+@Builder(toBuilder = true)
 public class HavingCourses {
 
     private String student_username;

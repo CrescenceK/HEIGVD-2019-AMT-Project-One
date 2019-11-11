@@ -10,8 +10,8 @@ import lombok.Setter;
 @Builder(toBuilder = true)
 @EqualsAndHashCode
 public class Course {
-
     private  String course_name;
     private int credit_etcs;
-
 }
+
+
